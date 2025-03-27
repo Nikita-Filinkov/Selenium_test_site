@@ -16,7 +16,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 
-link = 'https://saby.ru/?redir=1'
+link = 'https://saby.ru/'
 
 options = webdriver.ChromeOptions()
 options.add_argument(
@@ -135,7 +135,6 @@ print(len(partners) > 0)
 time.sleep(2)
 block_region.click()
 time.sleep(2)
-driver.find_element(By.CSS_SELECTOR, 'ul[class="sbis_ru-Region-Panel__list-l"]')
 new_region = driver.find_element(By.CSS_SELECTOR, 'span[title="Камчатский край"]')
 choice_region = new_region.text
 new_region.click()
@@ -181,13 +180,6 @@ driver.get(link)
 
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 driver.get(link)
-driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-time.sleep(2)
-
-element = WebDriverWait(driver, 5).until(
-    EC.presence_of_element_located(
-        (By.CSS_SELECTOR, 'div[class="pt-56 pt-md-32 pt-sm-16"]'))
-)
 
 driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 
@@ -196,7 +188,7 @@ try:
         EC.presence_of_element_located(
             (By.XPATH, "//a[contains(text(), 'Скачать локальные версии')]"))
     )
-    link = download_link.get_attribute('href')  # Получаем значение атрибута href
+    link = download_link.get_attribute('href')
     print("Ссылка на 'Скачать локальные версии':", link)
     download_link.click()
 except Exception as e:
